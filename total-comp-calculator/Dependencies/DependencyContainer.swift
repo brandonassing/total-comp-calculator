@@ -5,15 +5,17 @@
 //  Created by Brandon Assing on 2024-11-13.
 //
 
-typealias Dependecies = HasCalculatorService
+typealias Dependecies = HasCalculatorService & HasStockNetworkService
 
-class DependencyContainer {
+class DependencyContainer: Dependecies {
     static let shared = DependencyContainer()
     private init() {}
-}
-
-extension DependencyContainer: Dependecies {
-    var calculatorService: CalculatorServicing {
+    
+    lazy var calculatorService: CalculatorServicing = {
         return CalculatorService()
-    }
+    }()
+    
+    lazy var stockNetworkService: StockNetworkServicing = {
+        return StockNetworkService()
+    }()
 }
