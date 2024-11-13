@@ -10,5 +10,10 @@ protocol HasStockProvider {
 }
 
 protocol StockProviding {
-    
+    func getStockPrice(for symbol: String, at timeFrame: StockPriceTimeFrame) async throws -> StockQuote
+}
+
+enum StockPriceTimeFrame {
+    case now
+    case yesterdayClose
 }

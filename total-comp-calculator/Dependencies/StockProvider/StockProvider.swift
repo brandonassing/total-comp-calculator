@@ -13,4 +13,8 @@ class StockProvider: StockProviding {
     init(dependencies: Dependencies) {
         self.stockNetworkService = dependencies.stockNetworkService
     }
+
+    func getStockPrice(for symbol: String, at timeFrame: StockPriceTimeFrame) async throws -> StockQuote {
+        return StockQuote(symbol: "SQ", price: 82.50)
+    }
 }
