@@ -6,5 +6,11 @@
 //
 
 class CalculatorService: CalculatorServicing {
-    init() {}
+    typealias Dependencies = HasStockProvider
+
+    private let stockProvider: StockProviding
+
+    init(dependencies: Dependencies) {
+        self.stockProvider = dependencies.stockProvider
+    }
 }

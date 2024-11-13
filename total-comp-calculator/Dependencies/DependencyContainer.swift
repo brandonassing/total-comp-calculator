@@ -7,13 +7,13 @@
 
 typealias AllDependecies = HasCalculatorService & HasStockNetworkService & HasStockProvider
 
-class DependencyContainer: AllDependecies {
+final class DependencyContainer: AllDependecies {
 
     static let shared = DependencyContainer()
     private init() {}
     
     lazy var calculatorService: CalculatorServicing = {
-        CalculatorService()
+        CalculatorService(dependencies: Self.shared)
     }()
     
     lazy var stockNetworkService: StockNetworkServicing = {
@@ -21,6 +21,6 @@ class DependencyContainer: AllDependecies {
     }()
     
     lazy var stockProvider: StockProviding = {
-        StockProvider(dependencies: DependencyContainer.shared)
+        StockProvider(dependencies: Self.shared)
     }()
 }
