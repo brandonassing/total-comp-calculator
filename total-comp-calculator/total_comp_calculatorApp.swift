@@ -25,7 +25,7 @@ struct total_comp_calculatorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalculatorView()
         }
         .modelContainer(sharedModelContainer)
     }
