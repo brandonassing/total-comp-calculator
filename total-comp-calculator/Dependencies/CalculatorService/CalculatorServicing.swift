@@ -12,5 +12,5 @@ protocol HasCalculatorService {
 }
 
 protocol CalculatorServicing {
-    func getTotalCompensation(in currency: Currency, salary: Double, rsuCount: Int, stockSymbol: String) -> AnyPublisher<CompensationDetails, Error>
+    func getTotalCompensation(in currency: Currency, salary: Double, rsuCount: Int, stockSymbol: String) -> AnyPublisher<Result<CompensationDetails, Error>, Never>
 }

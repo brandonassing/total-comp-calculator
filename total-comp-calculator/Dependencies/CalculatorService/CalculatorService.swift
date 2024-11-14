@@ -16,10 +16,10 @@ class CalculatorService: CalculatorServicing {
         self.stockProvider = dependencies.stockProvider
     }
     
-    func getTotalCompensation(in currency: Currency, salary: Double, rsuCount: Int, stockSymbol: String) -> AnyPublisher<CompensationDetails, Error> {
+    func getTotalCompensation(in currency: Currency, salary: Double, rsuCount: Int, stockSymbol: String) -> AnyPublisher<Result<CompensationDetails, Error>, Never> {
         Future { [weak self] promise in
             guard let self else {
-                promise(.failure(CalculatorError.unknownError))
+                promise(.success(.failure(CalculatorError.unknownError)))
                 return
             }
             Task {
@@ -29,9 +29,9 @@ class CalculatorService: CalculatorServicing {
                     let totalStockValue = Double(rsuCount) * stockQuote.price
                     
                     let compensationDetails = CompensationDetails(salary: salary, rsuTotalValue: totalStockValue, currency: currency)
-                    promise(.success(compensationDetails))
+                    promise(.success(.success(compensationDetails)))
                 } catch {
-                    promise(.failure(CalculatorError.stockPriceNotFound(underlyingError: error)))
+                    promise(.success(.failure(CalculatorError.stockPriceNotFound(underlyingError: error))))
                 }
             }
         }
