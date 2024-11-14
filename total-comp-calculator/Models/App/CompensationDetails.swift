@@ -31,7 +31,7 @@ extension CompensationDetails {
     }
 }
 
-enum Currency: String {
+enum Currency: String, CaseIterable, Displayable {
     case usd = "USD"
     case cad = "CAD"
     
@@ -42,5 +42,9 @@ enum Currency: String {
         case .cad:
             "en_CA"
         }
+    }
+    
+    var displayName: String {
+        rawValue
     }
 }
