@@ -13,10 +13,10 @@ class CalculatorViewModel: ObservableObject {
     
     // Inputs
     let calculateTapped = PassthroughSubject<Void, Never>()
-    @Published var salary = CurrentValueSubject<Double, Never>(167280)
-    @Published var rsuCount = CurrentValueSubject<Int, Never>(1137)
-    @Published var currency = CurrentValueSubject<Currency, Never>(.cad)
-    @Published var stockSymbol = CurrentValueSubject<String, Never>("")
+    @Published var salary: Double = 167280
+    @Published var rsuCount: Int = 1137
+    @Published var currency: Currency = .cad
+    @Published var stockSymbol: String = ""
     
     // Outputs
     @Published var totalCompensationFormatted: String?
@@ -27,7 +27,7 @@ class CalculatorViewModel: ObservableObject {
         calculateTapped
             .flatMap { [weak self] _ -> AnyPublisher<Result<CompensationDetails, Error>, Never> in
                 guard let self else { return Empty().eraseToAnyPublisher() }
-                return dependencies.calculatorService.getTotalCompensation(in: self.currency.value, salary: self.salary.value, rsuCount: self.rsuCount.value, stockSymbol: self.stockSymbol.value)
+                return dependencies.calculatorService.getTotalCompensation(in: self.currency, salary: self.salary, rsuCount: self.rsuCount, stockSymbol: self.stockSymbol)
             }
             .receive(on: RunLoop.main)
             .sink { result in
