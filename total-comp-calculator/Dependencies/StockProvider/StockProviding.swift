@@ -10,7 +10,8 @@ protocol HasStockProvider {
 }
 
 protocol StockProviding {
-    func getStockPrice(for symbol: String, at timeFrame: StockPriceTimeFrame) async throws -> StockQuote
+    func getStockQuote(for symbol: String, at timeFrame: StockPriceTimeFrame) async throws -> StockQuote
+    func getStockQuote(for symbol: String, at timeFrame: StockPriceTimeFrame, in currency: Currency) async throws -> StockQuote
 }
 
 enum StockPriceTimeFrame {

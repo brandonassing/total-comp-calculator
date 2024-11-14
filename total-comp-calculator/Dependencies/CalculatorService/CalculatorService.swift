@@ -24,7 +24,7 @@ class CalculatorService: CalculatorServicing {
             }
             Task {
                 do {
-                    let stockQuote = try await self.stockProvider.getStockPrice(for: stockSymbol, at: .yesterdayClose)
+                    let stockQuote = try await self.stockProvider.getStockQuote(for: stockSymbol, at: .yesterdayClose, in: currency)
                     // This will be in USD
                     let totalStockValue = Double(rsuCount) * stockQuote.price
                     
