@@ -6,5 +6,5 @@
 //
 
 struct CurrencyExchangeRate {
-    let exchangeRate: Double
+    let rate: Double
 }

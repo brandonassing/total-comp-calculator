@@ -8,4 +8,5 @@
 struct StockQuote {
     let symbol: String
     let price: Double
+    let currency: Currency
 }
