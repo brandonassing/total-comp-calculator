@@ -41,6 +41,5 @@ struct DropdownView<T>: View where T: Displayable {
 
 		}
 		.padding()
-		.background(Color.white)
     }
 }
