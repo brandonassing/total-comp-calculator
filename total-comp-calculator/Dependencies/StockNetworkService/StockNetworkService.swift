@@ -22,8 +22,7 @@ class StockNetworkService: StockNetworkServicing {
 
     init() {}
     
-    private func getURL(with queryParams: [String: String]) -> URL? {
-        guard let apiKey else { return nil } // TODO: update this to throw instead so we can have a specific error.
+    private func getURL(with queryParams: [String: String], apiKey: String) -> URL? {
         let queryParams = queryParams.merging(["apikey": apiKey]) { current, new in new }
         
         var urlComponents = URLComponents(string: StockNetworkService.baseURL)
@@ -33,7 +32,10 @@ class StockNetworkService: StockNetworkServicing {
     }
     
     private func makeRequest(with queryParams: [String: String]) async -> Result<Data, Error> {
-        guard let url = getURL(with: queryParams) else {
+        guard let apiKey = apiKey else {
+            return .failure(NetworkError.invalidAPIKey)
+        }
+        guard let url = getURL(with: queryParams, apiKey: apiKey) else {
             return .failure(NetworkError.invalidURL)
         }
 
@@ -97,6 +99,7 @@ class StockNetworkService: StockNetworkServicing {
     }
     
     enum NetworkError: Error {
+        case invalidAPIKey
         case invalidURL
         case noResponse
         case badResponse(_ statusCode: Int)
