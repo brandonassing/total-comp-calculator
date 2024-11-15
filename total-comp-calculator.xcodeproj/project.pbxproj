@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5C9DBA272CE6D103004E539B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C9DBA262CE6D103004E539B /* Config.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5C9DB9462CE4DA8B004E539B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		5C9DB9332CE4DA8B004E539B /* total-comp-calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "total-comp-calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9DB9452CE4DA8B004E539B /* total-comp-calculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "total-comp-calculatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9DB94F2CE4DA8B004E539B /* total-comp-calculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "total-comp-calculatorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C9DBA262CE6D103004E539B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		5C9DB92A2CE4DA8B004E539B = {
 			isa = PBXGroup;
 			children = (
+				5C9DBA262CE6D103004E539B /* Config.plist */,
 				5C9DB9352CE4DA8B004E539B /* total-comp-calculator */,
 				5C9DB9482CE4DA8B004E539B /* total-comp-calculatorTests */,
 				5C9DB9522CE4DA8B004E539B /* total-comp-calculatorUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C9DBA272CE6D103004E539B /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

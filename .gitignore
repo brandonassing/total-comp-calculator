@@ -129,6 +129,9 @@ xcuserdata
 
 ### Xcode ###
 
+## Contains data to be excluded from the git repo.
+Config.plist
+
 ## Xcode 8 and earlier
 
 ### Xcode Patch ###
