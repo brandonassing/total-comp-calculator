@@ -10,5 +10,6 @@ protocol HasStockNetworkService {
 }
 
 protocol StockNetworkServicing {
-    
+    func getStockQuote(for symbol: String) async -> Result<StockQuoteAPI, Error>
+    func getExchangeRate(from currency1: String, to currency2: String) async -> Result<CurrencyExchangeRateAPI, Error>
 }
