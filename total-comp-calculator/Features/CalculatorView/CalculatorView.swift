@@ -9,34 +9,59 @@ import SwiftUI
 
 struct CalculatorView: View {
     @StateObject private var viewModel = CalculatorViewModel(dependencies: DependencyContainer.shared)
+    
 
     var body: some View {
         VStack {
-            HStack {
-                NumberTextFieldView(
-                    label: "Salary",
-                    value: $viewModel.salary
-                )
-                
-                DropdownView(
-                    labelText: "Currency",
-                    items: self.viewModel.currencyOptions,
-                    selectAction: { viewModel.currency = $0 },
-                    selectPublisher: viewModel.$currency.eraseToAnyPublisher()
-                )
+            VStack(alignment: .leading) {
+                Text("Salary")
+                HStack {
+                    NumberTextFieldView(
+                        label: "Annual salary",
+                        value: $viewModel.salary
+                    )
+                    
+                    DropdownView(
+                        labelText: "Currency",
+                        items: self.viewModel.currencyOptions,
+                        selectAction: { viewModel.currency = $0 },
+                        selectPublisher: viewModel.$currency.eraseToAnyPublisher()
+                    )
+                }
             }
             
             Spacer()
-                .frame(height: 10)
+                .frame(height: 15)
             
-            HStack {
+            VStack(alignment: .leading) {
+                Text("RSUs")
+                
                 NumberTextFieldView(
                     label: "# of RSUs",
                     value: $viewModel.rsuCount
                 )
-                
-                TextField("Stock symbol", text: $viewModel.stockSymbol)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                HStack {
+                    switch viewModel.stockInput {
+                    case .symbol:
+                        TextField("Stock symbol", text: $viewModel.stockSymbol)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    case .price:
+                        NumberTextFieldView(
+                            label: "Stock price",
+                            value: $viewModel.stockPrice
+                        )
+                    case .none:
+                        Text("Select a stock input method.")
+                    }
+                    
+                    DropdownView(
+                        labelText: "Stock input",
+                        items: self.viewModel.stockInputOptions,
+                        selectAction: { viewModel.stockInput = $0 },
+                        selectPublisher: viewModel.$stockInput.eraseToAnyPublisher()
+                    )
+                }
             }
             
             if let totalCompensationFormatted = viewModel.totalCompensationFormatted {
@@ -49,6 +74,7 @@ struct CalculatorView: View {
                 viewModel.calculateTapped.send()
             }
         }
+        .padding()
     }
 }
 

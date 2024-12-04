@@ -40,7 +40,10 @@ class StockProvider: StockProviding {
     }
     
     func getStockQuote(for symbol: String, at timeFrame: StockPriceTimeFrame, in currency: Currency) async throws -> StockQuote {
+        // Stock quote is returned in USD.
         let stockQuote = try await getStockQuote(for: symbol, at: timeFrame)
+        
+        // Convert stock quote to specified currency.
         let exchangeRate = try await getUSDExchangeRate(for: currency)
         let convertedPrice = exchangeRate.rate * stockQuote.price
         return StockQuote(symbol: symbol, price: convertedPrice, currency: currency)

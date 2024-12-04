@@ -17,8 +17,11 @@ class CalculatorViewModel: ObservableObject {
     @Published var rsuCount: Int? = 1137
     @Published var currency: Currency? = .cad
     @Published var currencyOptions: [Currency] = Currency.allCases
+    @Published var stockInput: StockInput? = .symbol
+    @Published var stockInputOptions: [StockInput] = StockInput.allCases
     @Published var stockSymbol: String = "SQ"
-    
+    @Published var stockPrice: Double? = 75
+
     // Outputs
     @Published var totalCompensationFormatted: String?
     
@@ -28,8 +31,15 @@ class CalculatorViewModel: ObservableObject {
         calculateTapped
             .flatMap { [weak self] _ -> AnyPublisher<Result<CompensationDetails, Error>, Never> in
                 guard let self else { return Empty().eraseToAnyPublisher() }
-                guard let currency, let salary, let rsuCount else { return Empty().eraseToAnyPublisher() }
-                return dependencies.calculatorService.getTotalCompensation(in: currency, salary: salary, rsuCount: rsuCount, stockSymbol: self.stockSymbol)
+                guard let currency, let salary, let rsuCount, let stockInput else { return Empty().eraseToAnyPublisher() }
+                switch stockInput {
+                case .symbol:
+                    guard !self.stockSymbol.isEmpty else { return Empty().eraseToAnyPublisher() }
+                    return dependencies.calculatorService.getTotalCompensation(in: currency, salary: salary, rsuCount: rsuCount, stockSymbol: self.stockSymbol.trimmingCharacters(in: .whitespacesAndNewlines))
+                case .price:
+                    guard let stockPrice else { return Empty().eraseToAnyPublisher() }
+                    return dependencies.calculatorService.getTotalCompensation(in: currency, salary: salary, rsuCount: rsuCount, stockPrice: stockPrice)
+                }
             }
             .receive(on: RunLoop.main)
             .sink { result in
@@ -41,5 +51,19 @@ class CalculatorViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+}
+
+enum StockInput: CaseIterable, Displayable {
+    case symbol
+    case price
+    
+    var displayName: String {
+        switch self {
+        case .symbol:
+            "Symbol"
+        case .price:
+            "Price"
+        }
     }
 }

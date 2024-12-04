@@ -2,14 +2,16 @@
 import SwiftUI
 import Combine
 
+// TODO: support a default val and make selection non-optional
 struct DropdownView<T>: View where T: Displayable {
 	
 	let labelText: String
-	var noSelectionText: String? = nil
-	var noSelectionAction: (() -> Void)? = nil
-	var items: [T]
-	var selectAction: (T) -> Void
-	var selectPublisher: AnyPublisher<T?, Never>
+	let noSelectionText: String? = nil
+	let noSelectionAction: (() -> Void)? = nil
+	let items: [T]
+	let selectAction: (T) -> Void
+	let selectPublisher: AnyPublisher<T?, Never>
+    let addSpaceBetween: Bool = false
 	
 	@State private var selectedItem: T?
 	
@@ -17,8 +19,10 @@ struct DropdownView<T>: View where T: Displayable {
 		HStack {
 			Text(self.labelText)
 			
-			Spacer()
-			
+            if addSpaceBetween {
+                Spacer()
+            }
+            
 			Menu {
 				if let anySelectedText = self.noSelectionText, let anySelectedAction = self.noSelectionAction {
 					Button(anySelectedText, action: anySelectedAction)
@@ -40,6 +44,5 @@ struct DropdownView<T>: View where T: Displayable {
 			})
 
 		}
-		.padding()
     }
 }

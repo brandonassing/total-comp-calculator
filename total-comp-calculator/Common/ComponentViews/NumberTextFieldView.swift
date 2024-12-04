@@ -19,8 +19,7 @@ struct NumberTextFieldView<V: Numeric>: View {
     
     var body: some View {
         TextField(label, value: $value, formatter: formatter)
-            .keyboardType(.decimalPad)
-            .padding()
+            .keyboardType(.decimalPad) // TODO: don't want decimal for Int input
             .textFieldStyle(RoundedBorderTextFieldStyle())
     }
 }
