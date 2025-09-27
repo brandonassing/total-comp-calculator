@@ -5,7 +5,7 @@
 //  Created by Brandon Assing on 2024-11-13.
 //
 
-typealias AllDependecies = HasCalculatorService & HasStockNetworkService & HasStockProvider
+typealias AllDependecies = HasCalculatorService & HasStockNetworkService & HasStockProvider & HasPersistenceService
 
 final class DependencyContainer: AllDependecies {
 
@@ -22,5 +22,13 @@ final class DependencyContainer: AllDependecies {
     
     lazy var stockProvider: StockProviding = {
         StockProvider(dependencies: Self.shared)
+    }()
+    
+    lazy var persistenceService: PersistenceServicing = {
+        do {
+            return try PersistenceService()
+        } catch {
+            fatalError("Failed to initialize PersistenceService: \(error)")
+        }
     }()
 }
