@@ -13,13 +13,13 @@ class CalculatorViewModel: ObservableObject {
     
     // Inputs
     let calculateTapped = PassthroughSubject<Void, Never>()
-    @Published var salary: Double? = 167280
-    @Published var rsuCount: Int? = 1137
+    @Published var salary: Double? = 176280
+    @Published var rsuCount: Int? = 1393
     @Published var currency: Currency? = .cad
     @Published var currencyOptions: [Currency] = Currency.allCases
     @Published var stockInput: StockInput? = .symbol
     @Published var stockInputOptions: [StockInput] = StockInput.allCases
-    @Published var stockSymbol: String = "SQ"
+    @Published var stockSymbol: String = "XYZ"
     @Published var stockPrice: Double? = 75
 
     // Outputs
